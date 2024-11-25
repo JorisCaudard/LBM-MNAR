@@ -18,6 +18,23 @@ def plot_data_LBM(data, row_clusters, col_clusters, ax, title):
     ax.set_title(title)
     ax.axis('off')
 
+    # Get the boundaries between clusters
+    row_boundaries = np.where(np.diff(row_clusters[sorted_row_indices]))[0]
+    col_boundaries = np.where(np.diff(col_clusters[sorted_col_indices]))[0]
+
+    # Add red lines for row boundaries
+    for boundary in row_boundaries:
+        ax.axhline(boundary + 0.5, color='red', linewidth=2)
+
+    # Add red lines for column boundaries
+    for boundary in col_boundaries:
+        ax.axvline(boundary + 0.5, color='red', linewidth=2)
+
+    # Add the colorbar on the axis
+    cbar = plt.colorbar(im, ax=ax, orientation='vertical', fraction=0.046, pad=0.04)
+    cbar.set_ticks([-1, 0, 1])  # Set tick positions
+    cbar.set_ticklabels(['0', 'NA', '1'])  # Set tick labels
+
     return im
 
 def generate_mcar_data(data, missing_proba=0.3):
@@ -55,6 +72,7 @@ def calculate_missing_proportions(data):
     return np.sum(data == 0) / data.size
 
 
+
 if __name__ == '__main__':
 
     np.random.seed(42)
@@ -66,7 +84,7 @@ if __name__ == '__main__':
 
     # CLuster parameters
     alpha = beta = [1/3, 1/3, 1/3]
-    epsilon = 0.01
+    epsilon = 0.05
     pi = np.array([[epsilon, epsilon, 1 - epsilon],
                    [epsilon, 1-epsilon, 1-epsilon],
                    [1-epsilon, 1-epsilon, epsilon]])
