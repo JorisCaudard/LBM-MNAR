@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from torch import nn
-from utils import reparametrized_expanded_params, d2_DL3_XO
+from LBM_MNAR_origin.utils import reparametrized_expanded_params, d2_DL3_XO
 
 
 class LBM_NMAR(nn.Module):

@@ -1,4 +1,4 @@
-from lbfgs import FullBatchLBFGS
+from LBM_MNAR_origin.lbfgs import FullBatchLBFGS
 import numpy as np
 import torch
 
